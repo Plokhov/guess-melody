@@ -1,7 +1,7 @@
 # Учебный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Mikhail Plokhov](https://up.htmlacademy.ru/react/2/user/801117).
-* Наставник: `Неизвестно`.
+* Наставник: `Сафронов Кирилл`(https://htmlacademy.ru/profile/id1227111).
 
 ---
 
