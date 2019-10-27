@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 export const WelcomeScreen = (props) => {
-  const {time, errorCount} = props;
+  // eslint-disable-next-line no-unused-vars
+  const {time, errorCount, onClick} = props;
 
   return <section className="welcome">
     <div className="welcome__logo">
@@ -22,4 +23,5 @@ export const WelcomeScreen = (props) => {
 WelcomeScreen.propTypes = {
   time: PropTypes.number.isRequired,
   errorCount: PropTypes.number.isRequired,
+  onClick: PropTypes.func,
 };
