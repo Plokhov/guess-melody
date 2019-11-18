@@ -10,7 +10,7 @@ it(`When you click on the start button of the game will be called callback`, () 
   const app = shallow(<WelcomeScreen
     time={0}
     errorCount={0}
-    onWelcomeButtonClick={clickHandler}
+    onStartButtonClick={clickHandler}
   />);
 
   const startButton = app.find(`button`);
