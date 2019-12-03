@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const WelcomeScreen = (props) => {
   const {time, errorCount, onStartButtonClick} = props;
@@ -22,5 +22,5 @@ export const WelcomeScreen = (props) => {
 WelcomeScreen.propTypes = {
   time: PropTypes.number.isRequired,
   errorCount: PropTypes.number.isRequired,
-  onStartButtonClick: PropTypes.func,
+  onStartButtonClick: PropTypes.func.isRequired,
 };

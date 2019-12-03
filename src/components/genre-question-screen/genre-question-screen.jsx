@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const GenreQuestionScreen = ({question, screenIndex, onAnswer}) => {
   const {
@@ -34,16 +34,16 @@ export const GenreQuestionScreen = ({question, screenIndex, onAnswer}) => {
           evt.preventDefault();
           onAnswer();
         }}>
-          {answers.map((it, i) => {
+          {answers.map((it) => {
             return (
-              <div key={`${screenIndex} - answer-${i}`} className="track">
+              <div key={`${screenIndex} - answer-${it.id}`} className="track">
                 <button className="track__button track__button--play" type="button" />
                 <div className="track__status">
                   <audio />
                 </div>
                 <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`} id={`answer-${i}`} />
-                  <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
+                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${it.id}`} id={`answer-${it.id}`} />
+                  <label className="game__check" htmlFor={`answer-${it.id}`}>Отметить</label>
                 </div>
               </div>
             );
@@ -57,9 +57,14 @@ export const GenreQuestionScreen = ({question, screenIndex, onAnswer}) => {
 
 GenreQuestionScreen.propTypes = {
   question: PropTypes.shape({
+    type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
     genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `trance`, `metall`]),
-    answers: PropTypes.array,
-  }),
-  screenIndex: PropTypes.number,
-  onAnswer: PropTypes.func,
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired,
+      genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `trance`, `metall`])
+    })).isRequired,
+  }).isRequired,
+  screenIndex: PropTypes.number.isRequired,
+  onAnswer: PropTypes.func.isRequired,
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const ArtistQuestionScreen = ({question, screenIndex, onAnswer}) => {
   const {
@@ -39,11 +39,11 @@ export const ArtistQuestionScreen = ({question, screenIndex, onAnswer}) => {
         </div>
 
         <form className="game__artist" onChange={onAnswer}>
-          {answers.map((it, i) => {
+          {answers.map((it) => {
             return (
-              <div key={`${screenIndex} - answer-${i}`} className="artist">
-                <input className="artist__input visually-hidden" type="radio" name="answer" value={`answer-${i}`} id={`answer-${i}`} />
-                <label className="artist__name" htmlFor={`answer-${i}`}>
+              <div key={`${screenIndex} - answer-${it.id}`} className="artist">
+                <input className="artist__input visually-hidden" type="radio" name="answer" value={`answer-${it.id}`} id={`answer-${it.id}`} />
+                <label className="artist__name" htmlFor={`answer-${it.id}`}>
                   <img className="artist__picture" src={it.picture} alt={it.artist} />
                   {it.artist}
                 </label>
@@ -58,8 +58,17 @@ export const ArtistQuestionScreen = ({question, screenIndex, onAnswer}) => {
 
 ArtistQuestionScreen.propTypes = {
   question: PropTypes.shape({
-    answers: PropTypes.array,
-  }),
-  screenIndex: PropTypes.number,
-  onAnswer: PropTypes.func,
+    type: PropTypes.string.isRequired,
+    song: PropTypes.shape({
+      artist: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired
+    }),
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      picture: PropTypes.string.isRequired,
+      artist: PropTypes.string.isRequired
+    })),
+  }).isRequired,
+  screenIndex: PropTypes.number.isRequired,
+  onAnswer: PropTypes.func.isRequired,
 };
