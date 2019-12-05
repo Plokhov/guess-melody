@@ -7,21 +7,24 @@ it(`ArtistQuestionScreen correctly renders after relaunch`, () => {
     .create(<ArtistQuestionScreen
       screenIndex={0}
       question={{
-        type: `a`,
+        type: `artist`,
         song: {
           artist: `a`,
-          src: `a`,
+          src: `ab`,
         },
         answers: [
           {
+            id: `1`,
             picture: `a`,
             artist: `a`,
           },
           {
+            id: `2`,
             picture: `b`,
             artist: `b`,
           },
           {
+            id: `3`,
             picture: `c`,
             artist: `c`,
           },

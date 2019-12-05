@@ -10,24 +10,28 @@ it(`When the user answers, the callback function gets the data in the correct fo
   const genreQuestionScreen = shallow(<GenreQuestionScreen
     screenIndex={0}
     question={{
-      type: `a`,
+      type: `genre`,
       genre: `rock`,
       answers: [
         {
+          id: `1`,
           src: `a`,
-          genre: `a`,
+          genre: `pop`,
         },
         {
+          id: `2`,
           src: `a`,
-          genre: `a`,
+          genre: `pop`,
         },
         {
+          id: `3`,
           src: `a`,
-          genre: `a`,
+          genre: `pop`,
         },
         {
+          id: `4`,
           src: `a`,
-          genre: `a`,
+          genre: `pop`,
         },
       ],
     }}

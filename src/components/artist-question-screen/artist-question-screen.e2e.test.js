@@ -10,21 +10,24 @@ it(`When the user answers, the callback function gets the data in the correct fo
   const genreQuestionScreen = shallow(<ArtistQuestionScreen
     screenIndex={0}
     question={{
-      type: `a`,
+      type: `artist`,
       song: {
         artist: `a`,
         src: `a`,
       },
       answers: [
         {
+          id: `1`,
           picture: `a`,
           artist: `a`,
         },
         {
+          id: `2`,
           picture: `b`,
           artist: `b`,
         },
         {
+          id: `3`,
           picture: `c`,
           artist: `c`,
         },

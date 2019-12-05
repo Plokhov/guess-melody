@@ -7,6 +7,7 @@ it(`WelcomeScreen correctly renders after relaunch`, () => {
     .create(<WelcomeScreen
       time={0}
       errorCount={0}
+      onStartButtonClick={jest.fn()}
     />)
     .toJSON();
 
