@@ -7,24 +7,28 @@ it(`GenreQuestionScreen correctly renders after relaunch`, () => {
     .create(<GenreQuestionScreen
       screenIndex={0}
       question={{
-        type: `a`,
+        type: `genre`,
         genre: `pop`,
         answers: [
           {
+            id: `1`,
             src: `a`,
-            genre: `a`,
+            genre: `pop`,
           },
           {
+            id: `2`,
             src: `c`,
-            genre: `c`,
+            genre: `pop`,
           },
           {
+            id: `3`,
             src: `b`,
-            genre: `b`,
+            genre: `pop`,
           },
           {
+            id: `4`,
             src: `a`,
-            genre: `a`,
+            genre: `pop`,
           },
         ],
       }}
