@@ -44,13 +44,11 @@ export class ArtistQuestionScreen extends React.PureComponent {
         <section className="game__screen">
           <h2 className="game__title">Кто исполняет эту песню?</h2>
           <div className="game__track">
-            <div className="track">
-              <AudioPlayer
-                isPlaying={isPlaying}
-                onPlayButtonClick={() => this.setState({isPlaying: !isPlaying})}
-                src={song.src}
-              />
-            </div>
+            <AudioPlayer
+              isPlaying={isPlaying}
+              onPlayButtonClick={() => this.setState({isPlaying: !isPlaying})}
+              src={song.src}
+            />
           </div>
 
           <form className="game__artist" onChange={onAnswer}>

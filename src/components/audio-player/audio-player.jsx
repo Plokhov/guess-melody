@@ -28,7 +28,9 @@ export class AudioPlayer extends React.PureComponent {
           onClick={this._onPlayButtonClick}
         />
         <div className="track__status">
-          <audio ref={this._audioRef} />
+          <audio
+            ref={this._audioRef}
+          />
         </div>
       </React.Fragment>
     );
