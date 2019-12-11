@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
+exports[`GenreQuestionScreen is rendered correctly 1`] = `
 <section
   className="game game--genre"
 >
@@ -63,7 +63,7 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
       className="game__title"
     >
       Выберите 
-      pop
+      rock
        треки
     </h2>
     <form
@@ -75,6 +75,8 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div
@@ -87,14 +89,14 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
         >
           <input
             className="game__input visually-hidden"
-            id="answer-1"
+            id="answer-undefined"
             name="answer"
             type="checkbox"
-            value="answer-1"
+            value="answer-undefined"
           />
           <label
             className="game__check"
-            htmlFor="answer-1"
+            htmlFor="answer-undefined"
           >
             Отметить
           </label>
@@ -105,6 +107,8 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div
@@ -117,14 +121,14 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
         >
           <input
             className="game__input visually-hidden"
-            id="answer-2"
+            id="answer-undefined"
             name="answer"
             type="checkbox"
-            value="answer-2"
+            value="answer-undefined"
           />
           <label
             className="game__check"
-            htmlFor="answer-2"
+            htmlFor="answer-undefined"
           >
             Отметить
           </label>
@@ -135,6 +139,8 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div
@@ -147,14 +153,14 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
         >
           <input
             className="game__input visually-hidden"
-            id="answer-3"
+            id="answer-undefined"
             name="answer"
             type="checkbox"
-            value="answer-3"
+            value="answer-undefined"
           />
           <label
             className="game__check"
-            htmlFor="answer-3"
+            htmlFor="answer-undefined"
           >
             Отметить
           </label>
@@ -165,6 +171,8 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div
@@ -177,14 +185,14 @@ exports[`GenreQuestionScreen correctly renders after relaunch 1`] = `
         >
           <input
             className="game__input visually-hidden"
-            id="answer-4"
+            id="answer-undefined"
             name="answer"
             type="checkbox"
-            value="answer-4"
+            value="answer-undefined"
           />
           <label
             className="game__check"
-            htmlFor="answer-4"
+            htmlFor="answer-undefined"
           >
             Отметить
           </label>

@@ -2,37 +2,41 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {ArtistQuestionScreen} from './artist-question-screen.jsx';
 
-it(`ArtistQuestionScreen correctly renders after relaunch`, () => {
-  const tree = renderer
-    .create(<ArtistQuestionScreen
-      screenIndex={0}
-      question={{
-        type: `artist`,
-        song: {
-          artist: `a`,
-          src: `ab`,
-        },
-        answers: [
-          {
-            id: `1`,
-            picture: `a`,
-            artist: `a`,
-          },
-          {
-            id: `2`,
-            picture: `b`,
-            artist: `b`,
-          },
-          {
-            id: `3`,
-            picture: `c`,
-            artist: `c`,
-          },
-        ],
-      }}
-      onAnswer={jest.fn()}
-    />)
-    .toJSON();
+const mock = {
+  question: {
+    type: `artist`,
+    song: {
+      artist: `Jim Beam`,
+      src: `path.mp3`,
+    },
+    answers: [
+      {
+        picture: `path.jpg`,
+        artist: `John Snow`,
+      },
+      {
+        picture: `path.jpg`,
+        artist: `Jack Daniels`,
+      },
+      {
+        picture: `path.jpg`,
+        artist: `Jim Beam`,
+      },
+    ],
+  },
+};
+
+
+it(`ArtistQuestionScreen is rendered correctly`, () => {
+  const {question} = mock;
+  const tree = renderer.create(<ArtistQuestionScreen
+    onAnswer={jest.fn()}
+    question={question}
+  />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

@@ -2,39 +2,42 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {GenreQuestionScreen} from './genre-question-screen.jsx';
 
-it(`GenreQuestionScreen correctly renders after relaunch`, () => {
-  const tree = renderer
-    .create(<GenreQuestionScreen
-      screenIndex={0}
-      question={{
-        type: `genre`,
-        genre: `pop`,
-        answers: [
-          {
-            id: `1`,
-            src: `a`,
-            genre: `pop`,
-          },
-          {
-            id: `2`,
-            src: `c`,
-            genre: `pop`,
-          },
-          {
-            id: `3`,
-            src: `b`,
-            genre: `pop`,
-          },
-          {
-            id: `4`,
-            src: `a`,
-            genre: `pop`,
-          },
-        ],
-      }}
-      onAnswer={jest.fn()}
-    />)
-    .toJSON();
+const mock = {
+  question: {
+    type: `genre`,
+    genre: `rock`,
+    answers: [
+      {
+        src: `test.mp3`,
+        genre: `rock`,
+      },
+      {
+        src: `test.mp3`,
+        genre: `blues`,
+      },
+      {
+        src: `test.mp3`,
+        genre: `jazz`,
+      },
+      {
+        src: `test.mp3`,
+        genre: `rock`,
+      },
+    ],
+  },
+};
+
+
+it(`GenreQuestionScreen is rendered correctly`, () => {
+  const {question} = mock;
+  const tree = renderer.create(<GenreQuestionScreen
+    onAnswer={jest.fn()}
+    question={question}
+  />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
