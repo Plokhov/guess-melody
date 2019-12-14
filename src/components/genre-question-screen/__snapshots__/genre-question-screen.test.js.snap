@@ -2,209 +2,157 @@
 
 exports[`GenreQuestionScreen is rendered correctly 1`] = `
 <section
-  className="game game--genre"
+  className="game__screen"
 >
-  <header
-    className="game__header"
+  <h2
+    className="game__title"
   >
-    <a
-      className="game__back"
-      href="#"
-    >
-      <span
-        className="visually-hidden"
-      >
-        Сыграть ещё раз
-      </span>
-      <img
-        alt="Угадай мелодию"
-        className="game__logo"
-        src="img/melody-logo-ginger.png"
-      />
-    </a>
-    <div
-      className="timer__value"
-      xmlns="http://www.w3.org/1999/xhtml"
-    >
-      <span
-        className="timer__mins"
-      >
-        05
-      </span>
-      <span
-        className="timer__dots"
-      >
-        :
-      </span>
-      <span
-        className="timer__secs"
-      >
-        00
-      </span>
-    </div>
-    <div
-      className="game__mistakes"
-    >
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-    </div>
-  </header>
-  <section
-    className="game__screen"
+    Выберите 
+    rock
+     треки
+  </h2>
+  <form
+    className="game__tracks"
+    onSubmit={[Function]}
   >
-    <h2
-      className="game__title"
+    <div
+      className="track"
     >
-      Выберите 
-      rock
-       треки
-    </h2>
-    <form
-      className="game__tracks"
-      onSubmit={[Function]}
-    >
-      <div
-        className="track"
-      >
-        <button
-          className="track__button track__button--play"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-        <div
-          className="game__answer"
-        >
-          <input
-            className="game__input visually-hidden"
-            id="answer-undefined"
-            name="answer"
-            type="checkbox"
-            value="answer-undefined"
-          />
-          <label
-            className="game__check"
-            htmlFor="answer-undefined"
-          >
-            Отметить
-          </label>
-        </div>
-      </div>
-      <div
-        className="track"
-      >
-        <button
-          className="track__button track__button--play"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-        <div
-          className="game__answer"
-        >
-          <input
-            className="game__input visually-hidden"
-            id="answer-undefined"
-            name="answer"
-            type="checkbox"
-            value="answer-undefined"
-          />
-          <label
-            className="game__check"
-            htmlFor="answer-undefined"
-          >
-            Отметить
-          </label>
-        </div>
-      </div>
-      <div
-        className="track"
-      >
-        <button
-          className="track__button track__button--play"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-        <div
-          className="game__answer"
-        >
-          <input
-            className="game__input visually-hidden"
-            id="answer-undefined"
-            name="answer"
-            type="checkbox"
-            value="answer-undefined"
-          />
-          <label
-            className="game__check"
-            htmlFor="answer-undefined"
-          >
-            Отметить
-          </label>
-        </div>
-      </div>
-      <div
-        className="track"
-      >
-        <button
-          className="track__button track__button--play"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-        <div
-          className="game__answer"
-        >
-          <input
-            className="game__input visually-hidden"
-            id="answer-undefined"
-            name="answer"
-            type="checkbox"
-            value="answer-undefined"
-          />
-          <label
-            className="game__check"
-            htmlFor="answer-undefined"
-          >
-            Отметить
-          </label>
-        </div>
-      </div>
       <button
-        className="game__submit button"
-        type="submit"
+        className="track__button track__button--play"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      />
+      <div
+        className="track__status"
       >
-        Ответить
-      </button>
-    </form>
-  </section>
+        <audio />
+      </div>
+      <div
+        className="game__answer"
+      >
+        <input
+          className="game__input visually-hidden"
+          id="answer-undefined"
+          name="answer"
+          onChange={[Function]}
+          type="checkbox"
+          value="answer-undefined"
+        />
+        <label
+          className="game__check"
+          htmlFor="answer-undefined"
+        >
+          Отметить
+        </label>
+      </div>
+    </div>
+    <div
+      className="track"
+    >
+      <button
+        className="track__button track__button--play"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      />
+      <div
+        className="track__status"
+      >
+        <audio />
+      </div>
+      <div
+        className="game__answer"
+      >
+        <input
+          className="game__input visually-hidden"
+          id="answer-undefined"
+          name="answer"
+          onChange={[Function]}
+          type="checkbox"
+          value="answer-undefined"
+        />
+        <label
+          className="game__check"
+          htmlFor="answer-undefined"
+        >
+          Отметить
+        </label>
+      </div>
+    </div>
+    <div
+      className="track"
+    >
+      <button
+        className="track__button track__button--play"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      />
+      <div
+        className="track__status"
+      >
+        <audio />
+      </div>
+      <div
+        className="game__answer"
+      >
+        <input
+          className="game__input visually-hidden"
+          id="answer-undefined"
+          name="answer"
+          onChange={[Function]}
+          type="checkbox"
+          value="answer-undefined"
+        />
+        <label
+          className="game__check"
+          htmlFor="answer-undefined"
+        >
+          Отметить
+        </label>
+      </div>
+    </div>
+    <div
+      className="track"
+    >
+      <button
+        className="track__button track__button--play"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      />
+      <div
+        className="track__status"
+      >
+        <audio />
+      </div>
+      <div
+        className="game__answer"
+      >
+        <input
+          className="game__input visually-hidden"
+          id="answer-undefined"
+          name="answer"
+          onChange={[Function]}
+          type="checkbox"
+          value="answer-undefined"
+        />
+        <label
+          className="game__check"
+          htmlFor="answer-undefined"
+        >
+          Отметить
+        </label>
+      </div>
+    </div>
+    <button
+      className="game__submit button"
+      type="submit"
+    >
+      Ответить
+    </button>
+  </form>
 </section>
 `;
