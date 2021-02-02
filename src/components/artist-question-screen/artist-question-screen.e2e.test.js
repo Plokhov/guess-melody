@@ -5,37 +5,68 @@ import {ArtistQuestionScreen} from './artist-question-screen.jsx';
 
 Enzyme.configure({adapter: new Adapter()});
 
-it(`When the user answers, the callback function gets the data in the correct format`, () => {
-  const onUserAnswer = jest.fn();
-  const genreQuestionScreen = shallow(<ArtistQuestionScreen
-    screenIndex={0}
-    question={{
-      type: `artist`,
-      song: {
-        artist: `a`,
-        src: `a`,
+const mock = {
+  question: {
+    type: `artist`,
+    song: {
+      artist: ``,
+      src: ``
+    },
+    answers: [
+      {
+        artist: `one`,
+        picture: `pic-one`,
       },
-      answers: [
-        {
-          id: `1`,
-          picture: `a`,
-          artist: `a`,
-        },
-        {
-          id: `2`,
-          picture: `b`,
-          artist: `b`,
-        },
-        {
-          id: `3`,
-          picture: `c`,
-          artist: `c`,
-        },
-      ],
-    }}
-    onAnswer={onUserAnswer}
+      {
+        artist: `two`,
+        picture: `pic-two`,
+      },
+      {
+        artist: `three`,
+        picture: `pic-three`,
+      },
+    ],
+  }
+};
+
+
+const mockEvent = {
+  preventDefault() {}
+};
+
+
+it(`Click on user answer should pass to the callback data-object from which this answer was created`, () => {
+  const {question} = mock;
+  const onAnswer = jest.fn();
+
+  const screen = shallow(<ArtistQuestionScreen
+    onAnswer={onAnswer}
+    question={question}
   />);
 
-  genreQuestionScreen.find(`form`).simulate(`change`);
-  expect(onUserAnswer).toHaveBeenCalledTimes(1);
+  const answerInputs = screen.find(`input`);
+  const answerOne = answerInputs.at(0);
+  const answerTwo = answerInputs.at(1);
+  const answerThree = answerInputs.at(2);
+
+  answerOne.simulate(`click`, mockEvent);
+  answerTwo.simulate(`click`, mockEvent);
+  answerThree.simulate(`click`, mockEvent);
+
+  expect(onAnswer).toHaveBeenCalledTimes(3);
+
+  expect(onAnswer).toHaveBeenNthCalledWith(1, {
+    artist: `one`,
+    picture: `pic-one`,
+  });
+
+  expect(onAnswer).toHaveBeenNthCalledWith(2, {
+    artist: `two`,
+    picture: `pic-two`,
+  });
+
+  expect(onAnswer).toHaveBeenNthCalledWith(3, {
+    artist: `three`,
+    picture: `pic-three`,
+  });
 });

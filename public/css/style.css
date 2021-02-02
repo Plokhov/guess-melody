@@ -526,7 +526,7 @@ img {
 
 .welcome__logo {
   margin: 0;
-  margin-top: 220px; }
+}
 
 .welcome__button {
   position: absolute;
@@ -553,7 +553,8 @@ img {
   font-weight: 300;
   font-size: 33px;
   color: #230d1a;
-  margin-top: 300px; }
+  margin-top: 200px;
+}
 
 .welcome__text {
   margin: 0;
@@ -1006,7 +1007,7 @@ img {
 
 .result__logo {
   margin: 0;
-  margin-top: 220px; }
+}
 
 .result__title {
   margin: 0;
@@ -1016,7 +1017,7 @@ img {
   font-size: 33px;
   color: #230d1a;
   text-align: center;
-  margin-top: 50px; }
+  margin-top: 20px; }
 
 .result__total {
   margin: 0;
@@ -1029,10 +1030,8 @@ img {
   font-size: 30px;
   margin-top: 130px;
   width: 500px; }
-  .result__total--fail {
-    margin-top: 170px; }
 
-.result__text {
+  .result__text {
   margin: 0;
   margin-top: 10px;
   font-size: 16px; }

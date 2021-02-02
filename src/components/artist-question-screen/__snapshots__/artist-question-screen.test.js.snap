@@ -1,155 +1,101 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ArtistQuestionScreen correctly renders after relaunch 1`] = `
+exports[`ArtistQuestionScreen is rendered correctly 1`] = `
 <section
-  className="game game--artist"
+  className="game__screen"
 >
-  <header
-    className="game__header"
+  <h2
+    className="game__title"
   >
-    <a
-      className="game__back"
-    >
-      <span
-        className="visually-hidden"
-      >
-        Сыграть ещё раз
-      </span>
-      <img
-        alt="Угадай мелодию"
-        className="game__logo"
-        src="img/melody-logo-ginger.png"
-      />
-    </a>
-    <div
-      className="timer__value"
-    >
-      <span
-        className="timer__mins"
-      >
-        05
-      </span>
-      <span
-        className="timer__dots"
-      >
-        :
-      </span>
-      <span
-        className="timer__secs"
-      >
-        00
-      </span>
-    </div>
-    <div
-      className="game__mistakes"
-    >
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-    </div>
-  </header>
-  <section
-    className="game__screen"
+    Кто исполняет эту песню?
+  </h2>
+  <div
+    className="game__track"
   >
-    <h2
-      className="game__title"
-    >
-      Кто исполняет эту песню?
-    </h2>
+    <button
+      className="track__button track__button--play"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    />
     <div
-      className="game__track"
+      className="track__status"
     >
-      <div
-        className="track"
-      >
-        <button
-          className="track__button track__button--play"
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-      </div>
+      <audio />
     </div>
-    <form
-      className="game__artist"
-      onChange={[MockFunction]}
+  </div>
+  <form
+    className="game__artist"
+  >
+    <div
+      className="artist"
     >
-      <div
-        className="artist"
+      <input
+        className="artist__input visually-hidden"
+        id="answer-undefined"
+        name="answer"
+        onClick={[Function]}
+        type="radio"
+        value="answer-undefined"
+      />
+      <label
+        className="artist__name"
+        htmlFor="answer-undefined"
       >
-        <input
-          className="artist__input visually-hidden"
-          id="answer-1"
-          name="answer"
-          type="radio"
-          value="answer-1"
+        <img
+          alt="John Snow"
+          className="artist__picture"
+          src="path.jpg"
         />
-        <label
-          className="artist__name"
-          htmlFor="answer-1"
-        >
-          <img
-            alt="a"
-            className="artist__picture"
-            src="a"
-          />
-          a
-        </label>
-      </div>
-      <div
-        className="artist"
+        John Snow
+      </label>
+    </div>
+    <div
+      className="artist"
+    >
+      <input
+        className="artist__input visually-hidden"
+        id="answer-undefined"
+        name="answer"
+        onClick={[Function]}
+        type="radio"
+        value="answer-undefined"
+      />
+      <label
+        className="artist__name"
+        htmlFor="answer-undefined"
       >
-        <input
-          className="artist__input visually-hidden"
-          id="answer-2"
-          name="answer"
-          type="radio"
-          value="answer-2"
+        <img
+          alt="Jack Daniels"
+          className="artist__picture"
+          src="path.jpg"
         />
-        <label
-          className="artist__name"
-          htmlFor="answer-2"
-        >
-          <img
-            alt="b"
-            className="artist__picture"
-            src="b"
-          />
-          b
-        </label>
-      </div>
-      <div
-        className="artist"
+        Jack Daniels
+      </label>
+    </div>
+    <div
+      className="artist"
+    >
+      <input
+        className="artist__input visually-hidden"
+        id="answer-undefined"
+        name="answer"
+        onClick={[Function]}
+        type="radio"
+        value="answer-undefined"
+      />
+      <label
+        className="artist__name"
+        htmlFor="answer-undefined"
       >
-        <input
-          className="artist__input visually-hidden"
-          id="answer-3"
-          name="answer"
-          type="radio"
-          value="answer-3"
+        <img
+          alt="Jim Beam"
+          className="artist__picture"
+          src="path.jpg"
         />
-        <label
-          className="artist__name"
-          htmlFor="answer-3"
-        >
-          <img
-            alt="c"
-            className="artist__picture"
-            src="c"
-          />
-          c
-        </label>
-      </div>
-    </form>
-  </section>
+        Jim Beam
+      </label>
+    </div>
+  </form>
 </section>
 `;
