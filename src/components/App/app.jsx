@@ -3,59 +3,79 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer";
+import Timer from "../timer/timer.jsx";
 import {Mistakes} from "../mistakes/mistakes.jsx";
 import {WelcomeScreen} from "../welcome-screen/welcome-screen.jsx";
 import {GenreQuestionScreen} from "../genre-question-screen/genre-question-screen.jsx";
 import {ArtistQuestionScreen} from "../artist-question-screen/artist-question-screen.jsx";
+import {LoseByTime} from "../lose-by-time/lose-by-time.jsx";
 
-class App extends React.PureComponent {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isTimerOn: false,
+    };
+
+    this._turnOnTimer = this._turnOnTimer.bind(this);
+  }
+
+  _turnOnTimer() {
+    this.setState({
+      isTimerOn: true,
+    });
+  }
+
   _getScreen(question) {
-    if (!question) {
-      const {
-        gameTime,
-        maxMistakes,
-        onWelcomeScreenClick
-      } = this.props;
-
-      return <WelcomeScreen
-        time={gameTime}
-        errorCount={maxMistakes}
-        onStartButtonClick={onWelcomeScreenClick}
-      />;
-    }
-
     const {
+      gameTime,
+      onWelcomeScreenClick,
       onUserAnswer,
       mistakes,
       maxMistakes,
       step
     } = this.props;
 
-
-    switch (question.type) {
-      case `genre`: return <GenreQuestionScreen
-        screenIndex={step}
-        question={question}
-        onAnswer={(userAnswer) => onUserAnswer(
-            userAnswer,
-            question,
-            mistakes,
-            maxMistakes
-        )}
-        mistakes={mistakes}
+    if (gameTime === 0) {
+      return <LoseByTime
+        onStartButtonClick={onWelcomeScreenClick}
       />;
+    }
 
-      case `artist`: return <ArtistQuestionScreen
-        screenIndex={step}
-        question={question}
-        onAnswer={(userAnswer) => onUserAnswer(
-            userAnswer,
-            question,
-            mistakes,
-            maxMistakes
-        )}
-        mistakes={mistakes}
+    if (!question) {
+      return <WelcomeScreen
+        errorCount={maxMistakes}
+        gameTime={gameTime}
+        onStartButtonClick={onWelcomeScreenClick}
+        turnOnTimer={this._turnOnTimer}
       />;
+    } else {
+      switch (question.type) {
+        case `genre`: return <GenreQuestionScreen
+          screenIndex={step}
+          question={question}
+          onAnswer={(userAnswer) => onUserAnswer(
+              userAnswer,
+              question,
+              mistakes,
+              maxMistakes
+          )}
+          mistakes={mistakes}
+        />;
+
+        case `artist`: return <ArtistQuestionScreen
+          screenIndex={step}
+          question={question}
+          onAnswer={(userAnswer) => onUserAnswer(
+              userAnswer,
+              question,
+              mistakes,
+              maxMistakes
+          )}
+          mistakes={mistakes}
+        />;
+      }
     }
 
     return null;
@@ -65,22 +85,27 @@ class App extends React.PureComponent {
     const {
       questions,
       step,
-      mistakes
+      mistakes,
+      maxMistakes,
     } = this.props;
 
-    return <section className="game game--artist">
+    return <section className="game">
       <header className="game__header">
         <a className="game__back">
-          <span className="visually-hidden">Сыграть ещё раз</span>
-          <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
+          <span className="visually-hidden">
+            Сыграть ещё раз
+          </span>
+          <img
+            className="game__logo"
+            src="img/melody-logo-ginger.png"
+            alt="Угадай мелодию"
+          />
         </a>
 
-        <div className="timer__value">
-          <span className="timer__mins">05</span>
-          <span className="timer__dots">:</span>
-          <span className="timer__secs">00</span>
-        </div>
-
+        <Timer
+          isTimerOn={this.state.isTimerOn}
+          maxMistakes={maxMistakes}
+        />
         <Mistakes mistakes={mistakes} />
       </header>
 
@@ -88,6 +113,7 @@ class App extends React.PureComponent {
     </section>;
   }
 }
+
 
 App.propTypes = {
   mistakes: PropTypes.number.isRequired,
@@ -100,13 +126,16 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  gameTime: state.gameTime,
   step: state.step,
   mistakes: state.mistakes,
 });
 
-
 const mapDispatchToProps = (dispatch) => ({
-  onWelcomeScreenClick: () => dispatch(ActionCreator.incrementStep()),
+  onWelcomeScreenClick: () => {
+    dispatch(ActionCreator.incrementStep());
+  },
+
 
   onUserAnswer: (userAnswer, question, mistakes, maxMistakes) => {
     dispatch(ActionCreator.incrementStep());

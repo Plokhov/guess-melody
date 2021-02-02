@@ -1,8 +1,3 @@
-const initialState = {
-  step: -1,
-  mistakes: 0,
-};
-
 const isArtistAnswerCorrect = (userAnswer, question) =>
   userAnswer.artist === question.song.artist;
 
@@ -12,8 +7,18 @@ const isGenreAnswerCorrect = (userAnswer, question) =>
     question.answers[i].genre === question.genre
   ));
 
+const initialState = {
+  gameTime: 300,
+  step: -1,
+  mistakes: 0,
+};
 
 const ActionCreator = {
+  decrementTime: () => ({
+    type: `DECREMENT_TIME`,
+    payload: 1,
+  }),
+
   incrementStep: () => ({
     type: `INCREMENT_STEP`,
     payload: 1,
@@ -46,6 +51,10 @@ const ActionCreator = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case `DECREMENT_TIME`: return Object.assign({}, state, {
+      gameTime: state.gameTime - action.payload,
+    });
+
     case `INCREMENT_STEP`: return Object.assign({}, state, {
       step: state.step + action.payload,
     });
@@ -59,7 +68,6 @@ const reducer = (state = initialState, action) => {
 
   return state;
 };
-
 
 export {
   ActionCreator,

@@ -11,17 +11,18 @@ export class ArtistQuestionScreen extends React.PureComponent {
       isPlaying: false,
     };
   }
-
   render() {
     const {question, onAnswer, screenIndex} = this.props;
     const {isPlaying} = this.state;
     const {
       answers,
-      song
+      song,
     } = question;
 
-    return (<section className="game__screen">
-      <h2 className="game__title">Кто исполняет эту песню?</h2>
+    return <section className="game__screen">
+      <h2 className="game__title">
+        Кто исполняет эту песню?
+      </h2>
       <div className="game__track">
         <AudioPlayer
           isPlaying={isPlaying}
@@ -33,25 +34,35 @@ export class ArtistQuestionScreen extends React.PureComponent {
       <form className="game__artist">
         {answers.map((it) => {
           return (
-            <div key={`${screenIndex} - answer-${it.id}`} className="artist">
+            <div
+              className="artist"
+              key={`${screenIndex} - answer-${it.id}`}
+            >
               <input
                 className="artist__input visually-hidden"
                 type="radio"
                 name="answer"
-                value={`answer-${it.id}`}
-                id={`answer-${it.id}`}
-                onClick={() => onAnswer(it)}
+                value={`artist-${it.id}`}
+                id={`artist-${it.id}`}
+                onClick={() => {
+                  onAnswer(it);
+                  this.setState({
+                    isPlaying: false,
+                  });
+                }}
               />
-              <label className="artist__name" htmlFor={`answer-${it.id}`}>
-                <img className="artist__picture" src={it.picture} alt={it.artist} />
+              <label className="artist__name" htmlFor={`artist-${it.id}`}>
+                <img
+                  className="artist__picture"
+                  src={it.picture}
+                  alt={it.artist}
+                />
                 {it.artist}
               </label>
-            </div>
-          );
+            </div>);
         })}
       </form>
-    </section>
-    );
+    </section>;
   }
 }
 

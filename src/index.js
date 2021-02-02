@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 
 import {settings, questions} from "./components/mocks/quetions.js";
 
-import App from "./components/App/app.jsx";
+import App from "./components/app/app.jsx";
 import {reducer} from "./reducer.js";
 
 const init = (gameSettings, gameQuestions) => {
@@ -15,10 +15,9 @@ const init = (gameSettings, gameQuestions) => {
       <Provider store={store}>
         <App
           maxMistakes={gameSettings.errorCount}
-          gameTime={gameSettings.gameTime}
           questions={gameQuestions}
         />
-      </ Provider>,
+      </Provider>,
       document.querySelector(`#root`)
   );
 };
