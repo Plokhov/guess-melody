@@ -31,24 +31,26 @@ export class Timer extends React.PureComponent {
     this._tick = this._tick.bind(this);
   }
 
-  componentDidUpdate() {
-    const {isTimerOn} = this.props;
-
-    if (isTimerOn) {
-      this.timeTick = setTimeout(this._tick, 1000);
-    }
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timeTick);
-  }
-
   _tick() {
     if (this.props.gameTime > 0) {
       this.props.onTimeTick();
     } else {
       clearTimeout(this.timeTick);
     }
+  }
+
+  componentDidUpdate() {
+    const {isTimerOn} = this.props;
+
+    if (isTimerOn) {
+      this.timeTick = setTimeout(this._tick, 1000);
+    } else {
+      clearTimeout(this.timeTick);
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeTick);
   }
 
   render() {
@@ -68,13 +70,13 @@ export class Timer extends React.PureComponent {
 
 Timer.propTypes = {
   gameTime: PropTypes.number.isRequired,
-  maxMistakes: PropTypes.number.isRequired,
   isTimerOn: PropTypes.bool.isRequired,
   onTimeTick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   gameTime: state.gameTime,
+  isTimerOn: state.isTimerOn,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,14 +1,25 @@
-const isArtistAnswerCorrect = (userAnswer, question) =>
-  userAnswer.artist === question.song.artist;
+const isAnswerCorrect = (userAnswer, question) => {
+  let answerIsCorrect = false;
 
+  switch (question.type) {
+    case `artist`:
+      answerIsCorrect = userAnswer.every((it, i) => it === (
+        question.answers[i].artist === question.song.artist
+      ));
+      break;
+    case `genre`:
+      answerIsCorrect = userAnswer.every((it, i) => it === (
+        question.answers[i].genre === question.genre
+      ));
+      break;
+  }
 
-const isGenreAnswerCorrect = (userAnswer, question) =>
-  userAnswer.every((it, i) => it === (
-    question.answers[i].genre === question.genre
-  ));
+  return answerIsCorrect;
+};
 
 const initialState = {
   gameTime: 300,
+  isTimerOn: false,
   step: -1,
   mistakes: 0,
 };
@@ -19,22 +30,22 @@ const ActionCreator = {
     payload: 1,
   }),
 
+  turnOnTimer: () => ({
+    type: `TURN_ON_TIMER`,
+    payload: true,
+  }),
+
   incrementStep: () => ({
     type: `INCREMENT_STEP`,
     payload: 1,
   }),
 
-  incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
-    let answerIsCorrect = false;
+  reset: () => ({
+    type: `RESET`
+  }),
 
-    switch (question.type) {
-      case `artist`:
-        answerIsCorrect = isArtistAnswerCorrect(userAnswer, question);
-        break;
-      case `genre`:
-        answerIsCorrect = isGenreAnswerCorrect(userAnswer, question);
-        break;
-    }
+  incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
+    const answerIsCorrect = isAnswerCorrect(userAnswer, question);
 
     if (!answerIsCorrect && mistakes + 1 >= maxMistakes) {
       return {
@@ -55,6 +66,10 @@ const reducer = (state = initialState, action) => {
       gameTime: state.gameTime - action.payload,
     });
 
+    case `TURN_ON_TIMER`: return Object.assign({}, state, {
+      isTimerOn: action.payload,
+    });
+
     case `INCREMENT_STEP`: return Object.assign({}, state, {
       step: state.step + action.payload,
     });
@@ -71,7 +86,5 @@ const reducer = (state = initialState, action) => {
 
 export {
   ActionCreator,
-  isArtistAnswerCorrect,
-  isGenreAnswerCorrect,
   reducer,
 };

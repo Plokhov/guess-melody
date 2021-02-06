@@ -1,18 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const WelcomeScreen = (props) => {
+const WelcomeScreen = (props) => {
   const {
     gameTime,
     errorCount,
     onStartButtonClick,
-    turnOnTimer,
   } = props;
-
-  const buttonClickHandler = () => {
-    onStartButtonClick();
-    turnOnTimer();
-  };
 
   return <section className="welcome">
     <div className="welcome__logo">
@@ -20,7 +14,7 @@ export const WelcomeScreen = (props) => {
     </div>
     <button
       className="welcome__button"
-      onClick={buttonClickHandler}
+      onClick={onStartButtonClick}
     >
       <span className="visually-hidden">
         Начать игру
@@ -34,7 +28,7 @@ export const WelcomeScreen = (props) => {
     </p>
     <ul className="welcome__rules-list">
       <li>
-        За {gameTime} минут нужно ответить на все вопросы.
+        За {gameTime / 60} минут нужно ответить на все вопросы.
       </li>
       <li>
         Можно допустить {errorCount} ошибки.
@@ -50,5 +44,6 @@ WelcomeScreen.propTypes = {
   errorCount: PropTypes.number.isRequired,
   gameTime: PropTypes.number.isRequired,
   onStartButtonClick: PropTypes.func.isRequired,
-  turnOnTimer: PropTypes.func.isRequired,
 };
+
+export default WelcomeScreen;
