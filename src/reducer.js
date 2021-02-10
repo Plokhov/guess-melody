@@ -1,77 +1,107 @@
-const isArtistAnswerCorrect = (userAnswer, question) =>
-  userAnswer.artist === question.song.artist;
-
-
-const isGenreAnswerCorrect = (userAnswer, question) =>
-  userAnswer.every((it, i) => it === (
-    question.answers[i].genre === question.genre
-  ));
+import {checkIfAnswerIsCorrect} from "./utils/utils.js";
 
 const initialState = {
-  gameTime: 300,
   step: -1,
+  gameTime: 300,
+  isTimerOn: false,
   mistakes: 0,
+  questions: [],
+};
+
+const ActionType = {
+  INCREMENT_STEP: `INCREMENT_STEP`,
+  INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
+  DECREMENT_TIME: `DECREMENT_TIME`,
+  TURN_ON_TIMER: `TURN_ON_TIMER`,
+  RESET: `RESET`,
+  LOAD_QUESTIONS: `LOAD_QUESTIONS`,
 };
 
 const ActionCreator = {
-  decrementTime: () => ({
-    type: `DECREMENT_TIME`,
+  incrementStep: () => ({
+    type: ActionType.INCREMENT_STEP,
     payload: 1,
   }),
 
-  incrementStep: () => ({
-    type: `INCREMENT_STEP`,
+  decrementTime: () => ({
+    type: ActionType.DECREMENT_TIME,
     payload: 1,
+  }),
+
+  turnOnTimer: () => ({
+    type: ActionType.TURN_ON_TIMER,
+    payload: true,
+  }),
+
+  reset: () => ({
+    type: ActionType.RESET,
   }),
 
   incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
-    let answerIsCorrect = false;
-
-    switch (question.type) {
-      case `artist`:
-        answerIsCorrect = isArtistAnswerCorrect(userAnswer, question);
-        break;
-      case `genre`:
-        answerIsCorrect = isGenreAnswerCorrect(userAnswer, question);
-        break;
-    }
+    const answerIsCorrect = checkIfAnswerIsCorrect(userAnswer, question);
 
     if (!answerIsCorrect && mistakes + 1 >= maxMistakes) {
       return {
-        type: `RESET`,
+        type: ActionType.RESET,
       };
     }
 
     return {
-      type: `INCREMENT_MISTAKES`,
+      type: ActionType.INCREMENT_MISTAKES,
       payload: answerIsCorrect ? 0 : 1,
     };
+  },
+
+  loadQuestions: (questions) => ({
+    type: ActionType.LOAD_QUESTIONS,
+    payload: questions,
+  }),
+};
+
+const Operation = {
+  loadQuestions: () => (dispatch, _getState, api) => {
+    return api.get(`/questions`)
+      .then((response) => {
+        dispatch(ActionCreator.loadQuestions(response.data));
+      });
   },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case `DECREMENT_TIME`: return Object.assign({}, state, {
-      gameTime: state.gameTime - action.payload,
-    });
+    case ActionType.INCREMENT_STEP:
+      return Object.assign({}, state, {
+        step: state.step + action.payload,
+      });
 
-    case `INCREMENT_STEP`: return Object.assign({}, state, {
-      step: state.step + action.payload,
-    });
+    case ActionType.DECREMENT_TIME:
+      return Object.assign({}, state, {
+        gameTime: state.gameTime - action.payload,
+      });
 
-    case `INCREMENT_MISTAKES`: return Object.assign({}, state, {
-      mistakes: state.mistakes + action.payload,
-    });
+    case ActionType.TURN_ON_TIMER:
+      return Object.assign({}, state, {
+        isTimerOn: action.payload,
+      });
 
-    case `RESET`: return Object.assign({}, initialState);
+    case ActionType.RESET:
+      return Object.assign({}, initialState);
+
+    case ActionType.INCREMENT_MISTAKES:
+      return Object.assign({}, state, {
+        mistakes: state.mistakes + action.payload,
+      });
+
+    case ActionType.LOAD_QUESTIONS:
+      return Object.assign({}, state, {
+        questions: action.payload,
+      });
   }
-
   return state;
 };
 
 export {
   ActionCreator,
-  isArtistAnswerCorrect,
-  isGenreAnswerCorrect,
   reducer,
+  Operation,
 };

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const LoseByTime = (props) => {
-  const {onStartButtonClick} = props;
+const LoseByTime = (props) => {
+  const {onTryAgainClick} = props;
 
   return (<section className="result">
     <div className="result__logo">
@@ -22,7 +22,7 @@ export const LoseByTime = (props) => {
     <button
       className="replay"
       type="button"
-      onClick={onStartButtonClick}
+      onClick={onTryAgainClick}
     >
       Попробовать ещё раз
     </button>
@@ -30,5 +30,7 @@ export const LoseByTime = (props) => {
 };
 
 LoseByTime.propTypes = {
-  onStartButtonClick: PropTypes.func.isRequired,
+  onTryAgainClick: PropTypes.func.isRequired,
 };
+
+export default LoseByTime;

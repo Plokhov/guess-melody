@@ -1,36 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 
+import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
-import Timer from "../timer/timer.jsx";
-import {Mistakes} from "../mistakes/mistakes.jsx";
-import {WelcomeScreen} from "../welcome-screen/welcome-screen.jsx";
-import {GenreQuestionScreen} from "../genre-question-screen/genre-question-screen.jsx";
-import {ArtistQuestionScreen} from "../artist-question-screen/artist-question-screen.jsx";
-import {LoseByTime} from "../lose-by-time/lose-by-time.jsx";
+
+import Time from "../time/time.jsx";
+import Mistakes from "../mistakes/mistakes.jsx";
+import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
+import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
+import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
+import LoseByTime from "../lose-by-time/lose-by-time.jsx";
+
+import widtTimer from "../hocks/with-timer/width-timer.js";
+import withUserAnswers from "../hocks/with-user-answers/with-user-answers.js";
+import withActivePlayer from "../hocks/with-active-player/width-active-player.js";
+
+const TimeWrapper = widtTimer(Time);
+
+const GenreQuestionScreenWrapper = withUserAnswers(
+    withActivePlayer(GenreQuestionScreen)
+);
+
+const ArtistQuestionScreenWrapper = withUserAnswers(
+    withActivePlayer(ArtistQuestionScreen)
+);
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isTimerOn: false,
-    };
-
-    this._turnOnTimer = this._turnOnTimer.bind(this);
-  }
-
-  _turnOnTimer() {
-    this.setState({
-      isTimerOn: true,
-    });
-  }
-
   _getScreen(question) {
     const {
       gameTime,
       onWelcomeScreenClick,
+      onTryAgainClick,
       onUserAnswer,
       mistakes,
       maxMistakes,
@@ -39,7 +39,7 @@ class App extends React.Component {
 
     if (gameTime === 0) {
       return <LoseByTime
-        onStartButtonClick={onWelcomeScreenClick}
+        onTryAgainClick={onTryAgainClick}
       />;
     }
 
@@ -48,11 +48,10 @@ class App extends React.Component {
         errorCount={maxMistakes}
         gameTime={gameTime}
         onStartButtonClick={onWelcomeScreenClick}
-        turnOnTimer={this._turnOnTimer}
       />;
     } else {
       switch (question.type) {
-        case `genre`: return <GenreQuestionScreen
+        case `genre`: return <GenreQuestionScreenWrapper
           screenIndex={step}
           question={question}
           onAnswer={(userAnswer) => onUserAnswer(
@@ -64,7 +63,7 @@ class App extends React.Component {
           mistakes={mistakes}
         />;
 
-        case `artist`: return <ArtistQuestionScreen
+        case `artist`: return <ArtistQuestionScreenWrapper
           screenIndex={step}
           question={question}
           onAnswer={(userAnswer) => onUserAnswer(
@@ -86,7 +85,6 @@ class App extends React.Component {
       questions,
       step,
       mistakes,
-      maxMistakes,
     } = this.props;
 
     return <section className="game">
@@ -102,10 +100,7 @@ class App extends React.Component {
           />
         </a>
 
-        <Timer
-          isTimerOn={this.state.isTimerOn}
-          maxMistakes={maxMistakes}
-        />
+        <TimeWrapper />
         <Mistakes mistakes={mistakes} />
       </header>
 
@@ -113,7 +108,6 @@ class App extends React.Component {
     </section>;
   }
 }
-
 
 App.propTypes = {
   mistakes: PropTypes.number.isRequired,
@@ -123,19 +117,26 @@ App.propTypes = {
   step: PropTypes.number.isRequired,
   onUserAnswer: PropTypes.func.isRequired,
   onWelcomeScreenClick: PropTypes.func.isRequired,
+  onTryAgainClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   gameTime: state.gameTime,
+  isTimerOn: state.isTimerOn,
   step: state.step,
   mistakes: state.mistakes,
+  questions: state.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onWelcomeScreenClick: () => {
     dispatch(ActionCreator.incrementStep());
+    dispatch(ActionCreator.turnOnTimer());
   },
 
+  onTryAgainClick: () => {
+    dispatch(ActionCreator.reset());
+  },
 
   onUserAnswer: (userAnswer, question, mistakes, maxMistakes) => {
     dispatch(ActionCreator.incrementStep());
