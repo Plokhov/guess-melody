@@ -55,11 +55,10 @@ const withUserAnswers = (Component) => {
         artist: PropTypes.string,
         src: PropTypes.string,
       }),
-      genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `trance`, `metall`]),
+      genre: PropTypes.string,
       answers: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
         src: PropTypes.string,
-        genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `trance`, `metall`]),
+        genre: PropTypes.string,
         picture: PropTypes.string,
         artist: PropTypes.string,
       })).isRequired,

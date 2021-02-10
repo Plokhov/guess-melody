@@ -1,21 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore} from "redux";
+import {createStore, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
+import tunk from "redux-thunk";
+import {compose} from "recompose";
 
-import {settings, questions} from "./components/mocks/quetions.js";
+import createAPI from "./api/api.js";
+import {settings, questions} from "./mocks/quetions.js";
 
 import App from "./components/app/app.jsx";
-import {reducer} from "./reducer.js";
+import {reducer, Operation} from "./reducer.js";
 
-const init = (gameSettings, gameQuestions) => {
-  const store = createStore(reducer);
+const init = (gameSettings) => {
+  const api = createAPI((...args) => store.dispatch(...args));
+
+  const store = createStore(
+      reducer,
+      compose(
+          applyMiddleware(tunk.withExtraArgument(api)),
+          window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+      )
+  );
+
+  store.dispatch(Operation.loadQuestions());
 
   ReactDOM.render(
       <Provider store={store}>
         <App
           maxMistakes={gameSettings.errorCount}
-          questions={gameQuestions}
         />
       </Provider>,
       document.querySelector(`#root`)

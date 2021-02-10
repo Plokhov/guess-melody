@@ -1,17 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 
+import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
-import Timer from "../timer/timer.jsx";
+
+import Time from "../time/time.jsx";
 import Mistakes from "../mistakes/mistakes.jsx";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import LoseByTime from "../lose-by-time/lose-by-time.jsx";
 
+import widtTimer from "../hocks/with-timer/width-timer.js";
 import withUserAnswers from "../hocks/with-user-answers/with-user-answers.js";
 import withActivePlayer from "../hocks/with-active-player/width-active-player.js";
+
+const TimeWrapper = widtTimer(Time);
 
 const GenreQuestionScreenWrapper = withUserAnswers(
     withActivePlayer(GenreQuestionScreen)
@@ -96,7 +100,7 @@ class App extends React.Component {
           />
         </a>
 
-        <Timer />
+        <TimeWrapper />
         <Mistakes mistakes={mistakes} />
       </header>
 
@@ -121,6 +125,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   isTimerOn: state.isTimerOn,
   step: state.step,
   mistakes: state.mistakes,
+  questions: state.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

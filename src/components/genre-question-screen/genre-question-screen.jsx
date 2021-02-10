@@ -32,7 +32,7 @@ const GenreQuestionScreen = (props) => {
         return (
           <div
             className="track"
-            key={`${screenIndex} - answer-${it.id}`}
+            key={`${screenIndex} - answer-${i}`}
           >
             <div className="game__track">
               {renderPlayer(it, i)}
@@ -42,14 +42,14 @@ const GenreQuestionScreen = (props) => {
                 className="game__input visually-hidden"
                 type="checkbox"
                 name="answer"
-                value={`answer-${it.id}`}
-                id={`answer-${it.id}`}
+                value={`answer-${i}`}
+                id={`answer-${i}`}
                 checked={userAnswer[i]}
                 onChange={() => {
                   onAnswerClick(i);
                 }}
               />
-              <label className="game__check" htmlFor={`answer-${it.id}`}>
+              <label className="game__check" htmlFor={`answer-${i}`}>
                 Отметить
               </label>
             </div>
@@ -70,11 +70,10 @@ const GenreQuestionScreen = (props) => {
 GenreQuestionScreen.propTypes = {
   question: PropTypes.shape({
     type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
-    genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `trance`, `metall`]),
+    genre: PropTypes.string.isRequired,
     answers: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
       src: PropTypes.string.isRequired,
-      genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `trance`, `metall`])
+      genre: PropTypes.string.isRequired,
     })).isRequired,
   }).isRequired,
   screenIndex: PropTypes.number.isRequired,

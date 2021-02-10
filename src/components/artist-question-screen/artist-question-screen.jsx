@@ -29,14 +29,14 @@ const ArtistQuestionScreen = (props) => {
         return (
           <div
             className="artist"
-            key={`${screenIndex} - answer-${it.id}`}
+            key={`${screenIndex} - answer-${i}`}
           >
             <input
               className="artist__input visually-hidden"
               type="radio"
               name="answer"
-              value={`artist-${it.id}`}
-              id={`artist-${it.id}`}
+              value={`artist-${i}`}
+              id={`artist-${i}`}
               onClick={() => {
                 onPlayerStop();
                 onAnswerClick(i, () => {
@@ -44,7 +44,7 @@ const ArtistQuestionScreen = (props) => {
                 });
               }}
             />
-            <label className="artist__name" htmlFor={`artist-${it.id}`}>
+            <label className="artist__name" htmlFor={`artist-${i}`}>
               <img
                 className="artist__picture"
                 src={it.picture}
@@ -66,7 +66,6 @@ ArtistQuestionScreen.propTypes = {
       src: PropTypes.string.isRequired
     }),
     answers: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
       picture: PropTypes.string.isRequired,
       artist: PropTypes.string.isRequired
     })),

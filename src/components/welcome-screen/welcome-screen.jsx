@@ -28,7 +28,7 @@ const WelcomeScreen = (props) => {
     </p>
     <ul className="welcome__rules-list">
       <li>
-        За {gameTime / 60} минут нужно ответить на все вопросы.
+        За {Math.floor(gameTime / 60)} минут нужно ответить на все вопросы.
       </li>
       <li>
         Можно допустить {errorCount} ошибки.
