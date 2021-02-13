@@ -9,7 +9,10 @@ import createAPI from "./api/api.js";
 import {settings, questions} from "./mocks/quetions.js";
 
 import App from "./components/app/app.jsx";
+import widthGameScreen from "./hocks/width-game-screen/width-game-screen.js";
 import {reducer, Operation} from "./reducer.js";
+
+const AppWrapper = widthGameScreen(App);
 
 const init = (gameSettings) => {
   const api = createAPI((...args) => store.dispatch(...args));
@@ -26,7 +29,7 @@ const init = (gameSettings) => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App
+        <AppWrapper
           maxMistakes={gameSettings.errorCount}
         />
       </Provider>,

@@ -6,6 +6,11 @@ const initialState = {
   isTimerOn: false,
   mistakes: 0,
   questions: [],
+  isAuthorizationRequired: false,
+  userId: 0,
+  userEmail: ``,
+  userLogin: ``,
+  userPassword: ``,
 };
 
 const ActionType = {
@@ -15,6 +20,11 @@ const ActionType = {
   TURN_ON_TIMER: `TURN_ON_TIMER`,
   RESET: `RESET`,
   LOAD_QUESTIONS: `LOAD_QUESTIONS`,
+  REQUIRED_AUTORIZATION: `REQUIRED_AUTORIZATION`,
+  GET_USER_ID: `GET_USER_ID`,
+  GET_USER_EMAIL: `GET_USER_EMAIL`,
+  GET_USER_LOGIN: `GET_USER_LOGIN`,
+  GET_USER_PASSWORD: `GET_USER_PASSWORD`,
 };
 
 const ActionCreator = {
@@ -56,6 +66,41 @@ const ActionCreator = {
     type: ActionType.LOAD_QUESTIONS,
     payload: questions,
   }),
+
+  requireAuthorization: (status) => {
+    return {
+      type: ActionType.REQUIRED_AUTORIZATION,
+      payload: Boolean(status),
+    };
+  },
+
+  getUserId: (id) => {
+    return {
+      type: ActionType.GET_USER_ID,
+      payload: id,
+    };
+  },
+
+  getUserEmail: (email) => {
+    return {
+      type: ActionType.GET_USER_EMAIL,
+      payload: email,
+    };
+  },
+
+  getUserLogin: (login) => {
+    return {
+      type: ActionType.GET_USER_LOGIN,
+      payload: login,
+    };
+  },
+
+  getUserPassword: (password) => {
+    return {
+      type: ActionType.GET_USER_PASSWORD,
+      payload: password,
+    };
+  },
 };
 
 const Operation = {
@@ -65,6 +110,17 @@ const Operation = {
         dispatch(ActionCreator.loadQuestions(response.data));
       });
   },
+
+  getAuthorization: (email, password) => (dispatch, _getState, api) => {
+    return api.post(`/login`, {
+      email,
+      password,
+    }).then((response) => {
+      dispatch(ActionCreator.requireAuthorization(response.status));
+      dispatch(ActionCreator.getUserId(response.data.id));
+      dispatch(ActionCreator.getUserEmail(email));
+    });
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -96,7 +152,33 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         questions: action.payload,
       });
+
+    case ActionType.REQUIRED_AUTORIZATION:
+      return Object.assign({}, state, {
+        isAuthorizationRequired: action.payload,
+      });
+
+    case ActionType.GET_USER_ID:
+      return Object.assign({}, state, {
+        userId: action.payload,
+      });
+
+    case ActionType.GET_USER_EMAIL:
+      return Object.assign({}, state, {
+        userEmail: action.payload,
+      });
+
+    case ActionType.GET_USER_LOGIN:
+      return Object.assign({}, state, {
+        userLogin: action.payload,
+      });
+
+    case ActionType.GET_USER_PASSWORD:
+      return Object.assign({}, state, {
+        userPassword: action.payload,
+      });
   }
+
   return state;
 };
 
