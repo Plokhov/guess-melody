@@ -47,14 +47,8 @@ const ActionCreator = {
     type: ActionType.RESET,
   }),
 
-  incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
+  incrementMistake: (userAnswer, question) => {
     const answerIsCorrect = checkIfAnswerIsCorrect(userAnswer, question);
-
-    if (!answerIsCorrect && mistakes + 1 >= maxMistakes) {
-      return {
-        type: ActionType.RESET,
-      };
-    }
 
     return {
       type: ActionType.INCREMENT_MISTAKES,

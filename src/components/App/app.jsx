@@ -20,7 +20,7 @@ const App = (props) => {
     <header className="game__header">
       <a className="game__back">
         <span className="visually-hidden">
-            Сыграть ещё раз
+          Сыграть ещё раз
         </span>
         <img
           className="game__logo"

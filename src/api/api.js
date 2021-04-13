@@ -3,7 +3,7 @@ import {ActionCreator} from "../reducer.js";
 
 const createAPI = (dispatch) => {
   const api = axios.create({
-    baseURL: `https://5.react.pages.academy/guess-melody`,
+    baseURL: `https://htmlacademy-react-2.appspot.com/guess-melody`,
     timeout: 1000 * 5,
     withCredentials: true,
   });

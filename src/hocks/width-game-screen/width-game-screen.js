@@ -1,14 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Route, Switch, Redirect} from "react-router-dom";
 
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator, Operation} from "../../reducer";
 
 import AuthorizationScreen from "../../components/authorization-screen/authorization-screen.jsx";
 import WelcomeScreen from "../../components/welcome-screen/welcome-screen.jsx";
 import GenreQuestionScreen from "../../components/genre-question-screen/genre-question-screen.jsx";
 import ArtistQuestionScreen from "../../components/artist-question-screen/artist-question-screen.jsx";
-import LoseByTime from "../../components/lose-by-time/lose-by-time.jsx";
+import WinScreen from "../../components/win-screen/win-screen.jsx";
+import LoseByMistakesScreen from "../../components/lose-by-mistakes-screen/lose-by-mistakes-screen.jsx";
+import LoseByTimeScreen from "../../components/lose-by-time-screen/lose-by-time-screen.jsx";
 
 import widthAuthorization from "../width-authorization/width-authorization.js";
 import withUserAnswers from "../with-user-answers/with-user-answers.js";
@@ -30,21 +33,23 @@ const widthGameScreen = (Component) => {
       const {
         gameTime,
         onWelcomeScreenClick,
-        onTryAgainClick,
         onUserAnswer,
         mistakes,
         maxMistakes,
+        questions,
         step
       } = this.props;
 
-      if (!this.props.isAuthorizationRequired) {
-        return <AuthorizationScreenWrapper />;
+      if (step >= questions.length) {
+        return <Redirect to="/results" />;
+      }
+
+      if (mistakes >= maxMistakes) {
+        return <Redirect to="/lose-by-mistakes" />;
       }
 
       if (gameTime === 0) {
-        return <LoseByTime
-          onTryAgainClick={onTryAgainClick}
-        />;
+        return <Redirect to="/lose-by-time" />;
       }
 
       if (!question) {
@@ -97,12 +102,43 @@ const widthGameScreen = (Component) => {
     }
 
     render() {
-      return (<Component
-        {...this.props}
-        renderScreen={(question) => {
-          return this._getScreen(question);
-        }}
-      />);
+      const {onTryAgainClick} = this.props;
+      return <Switch>
+        <Route
+          path="/"
+          exact
+          render={() => <Component
+            {...this.props}
+            renderScreen={(question) => this._getScreen(question)}
+          />}
+        />
+        <Route
+          path="/auth"
+          exact
+          component={AuthorizationScreenWrapper}
+        />
+        <Route
+          path="/results"
+          exact
+          render={() => <WinScreen
+            onRelaunchButtonClick={onTryAgainClick}
+          />}
+        />
+        <Route
+          path='/lose-by-mistakes'
+          exact
+          render={() => <LoseByMistakesScreen
+            onRelaunchButtonClick={onTryAgainClick}
+          />}
+        />
+        <Route
+          path="/lose-by-time"
+          exact
+          render={() => <LoseByTimeScreen
+            onRelaunchButtonClick={onTryAgainClick}
+          />}
+        />
+      </Switch>;
     }
   }
 
@@ -135,6 +171,7 @@ const widthGameScreen = (Component) => {
 
     onTryAgainClick: () => {
       dispatch(ActionCreator.reset());
+      dispatch(Operation.loadQuestions());
     },
 
     onUserAnswer: (userAnswer, question, mistakes, maxMistakes) => {
