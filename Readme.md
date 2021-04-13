@@ -2,6 +2,8 @@
 Угадай мелодию — это онлайн-игра, в которой игроку нужно угадывать исполнителей, названия и жанры определённых мелодий.
 ---
 
+<img width="636" alt="guess-melody" src="https://up.htmlacademy.ru/static/img/intensive/react/guess-melody.jpg">
+
 ## Техническое задание
 
 ### Страницы приложения

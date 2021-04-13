@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import {createStore, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
 import tunk from "redux-thunk";
+import {BrowserRouter} from "react-router-dom";
 import {compose} from "recompose";
 
 import createAPI from "./api/api.js";
@@ -29,9 +30,11 @@ const init = (gameSettings) => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <AppWrapper
-          maxMistakes={gameSettings.errorCount}
-        />
+        <BrowserRouter>
+          <AppWrapper
+            maxMistakes={gameSettings.errorCount}
+          />
+        </BrowserRouter>
       </Provider>,
       document.querySelector(`#root`)
   );

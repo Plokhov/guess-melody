@@ -1,9 +1,8 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
-const LoseByTime = (props) => {
-  const {onTryAgainClick} = props;
-
+const LoseByTimeScreen = ({onRelaunchButtonClick = () => {}}) => {
   return (<section className="result">
     <div className="result__logo">
       <img
@@ -19,18 +18,18 @@ const LoseByTime = (props) => {
     <p className="result__total result__total--fail">
       Время вышло! Вы не успели отгадать все мелодии
     </p>
-    <button
+    <Link
       className="replay"
-      type="button"
-      onClick={onTryAgainClick}
+      to="/"
+      onClick={onRelaunchButtonClick}
     >
       Попробовать ещё раз
-    </button>
+    </Link>
   </section>);
 };
 
-LoseByTime.propTypes = {
-  onTryAgainClick: PropTypes.func.isRequired,
+LoseByTimeScreen.propTypes = {
+  onRelaunchButtonClick: PropTypes.func.isRequired,
 };
 
-export default LoseByTime;
+export default LoseByTimeScreen;
